@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Grade Tracker</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.form-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.form-section h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.4rem;
+}
+
+.input-wrapper input {
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-wrapper input.error {
+  border-color: #e74c3c;
+  background: #fadbd8;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+.stats-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.stats-section h2 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.average-grade {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.student-count {
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 0.5rem;
+}
+
+.list-section h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.student-list {
+  list-style: none;
+}
+
+.student-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: white;
+  transition: all 0.2s;
+}
+
+.student-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.student-item.above-average {
+  background: #eef5ff;
+  border-color: #667eea;
+}
+
+.student-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.student-grade {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  min-width: 80px;
+  text-align: center;
+}
+
+.student-item.above-average .student-grade {
+  background: #27ae60;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+  transform: scale(1.05);
+}
+
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  background: #fadbd8;
+  color: #c0392b;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .form-group {
+    grid-template-columns: 1fr;
+  }
+
+  .student-item {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Val Student Grade Tracker</h1>
+      <p>Manage and track student grades with ease</p>
+    </div>
+
+
+<div class="content">
+  <div id="errorMessage" class="error-message"></div>
+
+  <div class="form-section">
+    <h2>Add New Student</h2>
+    <div class="form-group">
+      <div class="input-wrapper">
+        <label for="studentName">Student Name</label>
+        <input type="text" id="studentName" placeholder="Enter student name" />
+      </div>
+      <div class="input-wrapper">
+        <label for="studentGrade">Grade (0-100)</label>
+        <input type="number" id="studentGrade" placeholder="Enter grade" min="0" max="100" />
+      </div>
+      <button class="btn-add" id="addBtn">Add Student</button>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <h2>Average Grade</h2>
+    <div class="average-grade" id="averageGrade">0</div>
+    <div class="student-count" id="studentCount">0 students</div>
+  </div>
+
+  <div class="list-section">
+    <h2>Student List</h2>
+    <ul class="student-list" id="studentList"></ul>
+    <div class="empty-message" id="emptyMessage">No students added yet. Add a student to get started!</div>
+  </div>
+</div>
+
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
